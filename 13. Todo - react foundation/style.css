@@ -1,0 +1,54 @@
+body{
+    background-color: #1C1C1E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Montserrat;
+    font-size: 0.9rem;
+    color: white;
+}
+
+input{
+    background-color: #1C1C1E;
+    border: 1px solid #8E8E93;
+    border-radius: 3px;
+    font-family: montserrat;
+    font-size: 0.9rem;
+    color: white;
+    width: 160px;
+}
+
+button{
+    background-color: #0A84FF;
+    border: none;
+    color: white;
+    border-radius: 3px;
+    font-family: montserrat;
+    font-size: 0.9rem;
+    cursor: pointer;
+    width: 90px;
+}
+
+#todoForm{
+    display: flex;
+    flex-direction: row;
+    width: 450px;
+    justify-content: space-between;
+    margin: 10px;
+}
+.input{
+    display: flex;
+    flex-direction: row;
+    width: 350px;
+    justify-content: space-between;
+}
+.oneTodo{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    justify-content: space-between;
+}
+.eachTodo{
+    width: 164px;
+}
