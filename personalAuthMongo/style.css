@@ -1,0 +1,57 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+#auth{
+    width: 260px;
+    overflow-wrap: break-word;
+      word-wrap: break-word;
+}
+
+#res{
+    font-family: sf pro;
+    font-size: 0.9rem;
+    padding-top: 10px;
+    
+}
+
+#input{
+    display: flex;
+    flex-direction: column;
+    height: 62px;
+    justify-content: space-between;
+}
+
+#btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 8px;
+}
+
+button{
+    width: 47%;
+    background-color: #0A84FF;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 6px;
+    cursor: pointer;
+    font-family: sf pro;
+    font-weight: 400;
+    
+}
+
+button:hover{
+    background-color: #096bcc;
+}
+
+input{
+    font-family: sf pro;
+    font-weight: 400;
+    padding: 4px;
+}
