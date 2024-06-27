@@ -6,7 +6,7 @@ const jwtPassword = "8675309";
 
 const app = express();
 const port = 3000;
-mongoose.connect("mongodb+srv://ashitoshsable09:9vc1QiVkes6KOXf6@helloworldinstance.irhs9ec.mongodb.net/auth")
+mongoose.connect("mongodb+srv://ashitoshsable09:9vc1QiVkes6KOXf6@database1.crbcjg4.mongodb.net/auth")
 app.use(cors());
 
 const User = mongoose.model("logins",{
