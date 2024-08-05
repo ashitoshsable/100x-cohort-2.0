@@ -10,6 +10,8 @@ function App() {
         setTodos(text.todos);
       })
     },[])
+    // the [] is a dependency array talks about when this callback function should run
+
     },3000)
   return (
    <>
