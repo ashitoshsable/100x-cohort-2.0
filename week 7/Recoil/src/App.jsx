@@ -1,31 +1,29 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import './App.css'
-import { ContextCount } from './context';
-
-//normal propdrilling method - anti pattern
+import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { CountAtom, EvenSelector } from './store/atoms/count'
 
 function App(){
-  const[count,setCount]=useState(0);
   return(
     <>
-      <ContextCount.Provider value={count}>
-        <Count setCount={setCount}></Count>
-      </ContextCount.Provider>
+      <RecoilRoot>
+        <Count></Count>
+      </RecoilRoot>
     </>
   )
 }
 
-function Count({setCount}){
+function Count(){
   return(
     <>
       <CountRender/>
-      <Button setCount={setCount}></Button>
+      <Button></Button>
     </>
   )
 }
 
 function CountRender(){
-  const count=useContext(ContextCount);
+  const count=useRecoilValue(CountAtom);
   return(
     <h1>
       {count}
@@ -33,20 +31,31 @@ function CountRender(){
   )
 }
 
-function Button({setCount}){
-  const count=useContext(ContextCount);
+function Button(){
+  const setCount=useSetRecoilState(CountAtom);
   return (
     <>
       <button onClick={()=>{
-        setCount(count+1);
+        setCount(count=>count+1);
       }}>increment</button>
       <button onClick={()=>{
-        setCount(count-1);
+        setCount(count=>count-1);
       }}>decrement</button>
+      <EvenRenderer></EvenRenderer>
     </>
   )
 }
 
+function EvenRenderer(){
+  const even=useRecoilValue(EvenSelector);
+  return(
+    <h3>
+    {even==0?"It is even":"It is odd"}
+    </h3>
+  )
+}
+
+//normal propdrilling method - anti pattern
 // function App() {
 //   const [count, setCount] = useState(0)
 
