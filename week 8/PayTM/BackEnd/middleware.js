@@ -29,3 +29,7 @@ const authMiddleware = (req,res,next)=>{
         });
      }
 }
+
+modules.export = {
+    authMiddleware
+}

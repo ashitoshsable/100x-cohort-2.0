@@ -1,26 +1,53 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://ashitoshsable09:9vc1QiVkes6KOXf6@ashitoshdb.gvstg6c.mongodb.net/?retryWrites=true&w=majority&appName=ashitoshdb/");
+mongoose.connect("mongodb+srv://ashitoshsable09:9vc1QiVkes6KOXf6@ashitoshdb.gvstg6c.mongodb.net/?retryWrites=true&w=majority&appName=ashitoshdb/paytm");
 
-const PayTMSchema = new mongoose.Schema({
+const PayTMUserSchema = new mongoose.Schema({
     username: {
         type: String,
-        require: true
+        require: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
+        minLength: 3,
+        maxLength: 30
     },
     password: {
         type: String,
-        require: true
+        require: true,
+        minLength: 6
     },
     firstname: {
         type: String,
-        require: true
+        require: true,
+        trim: true,
+        maxLength: 50
     },
     lastname: {
         type: String,
+        required: true,
+        trim: true,
+        maxLength: 50
     },
     
 })
 
-const PayTMUser = new mongoose.model("PayTM", PayTMSchema);
+const PayTMAccountSchema = new mongoose.Schema({
+    userId:{
+        type: mongoose.Schema.Type.ObjectId,
+        ref: 'PayTMUser',
+        required: true
+    },
+    balance:{
+        type: Number,
+        required:true
+    }
+});
 
-module.exports = {PayTMUser};
+const PayTMUser = new mongoose.model('PayTMUser', PayTMUserSchema);
+const PayTMAccount = new mongoose.model('PayTMAccount',PayTMAccountSchema);
+
+module.exports = {
+    PayTMUser,
+    PayTMAccount
+};
