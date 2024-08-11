@@ -30,6 +30,6 @@ const authMiddleware = (req,res,next)=>{
      }
 }
 
-modules.export = {
+module.exports = {
     authMiddleware
 }

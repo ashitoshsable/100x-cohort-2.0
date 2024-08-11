@@ -3,10 +3,10 @@ const { authMiddleware } = require('../middleware');
 const { PayTMAccount } = require('../db');
 const { default:mongoose } = require('mongoose');
 
-const router = express.router();
+const router = express.Router();
 
-router.get("/balanace", authMiddleware, async (req,res)=>{
-    const user = PayTMAccount.findOne({
+router.get("/balance", authMiddleware, async (req,res)=>{
+    const user = await PayTMAccount.findOne({
         userId:req.userId
     });
 
@@ -60,7 +60,6 @@ router.post("/transfer", authMiddleware, async (req,res)=>{
 
     await PayTMAccount.updateOne({
         userId:to,
-    
     },{
         $inc:{balance:amount}
     }).session(session);
@@ -68,11 +67,9 @@ router.post("/transfer", authMiddleware, async (req,res)=>{
     await session.commitTransaction();
 
     res.status(200).json({
-        message:"Transfer Sucessful!"
+        message:"Transfer Sucessfull!"
     });
 
 });
 
-module.exports = {
-    router
-};
+module.exports = router;

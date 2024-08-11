@@ -22,7 +22,7 @@ router.post("/signup",async (req,res)=>{
         });
     }
 
-    const existingUser = PayTMUser.findone({
+    const existingUser = await PayTMUser.findOne({
         username: body.username
     })
 
@@ -37,11 +37,10 @@ router.post("/signup",async (req,res)=>{
     const userId= newUser._id;
 
     await PayTMAccount.create({
-        userId:userId,
-        balanace: 1+Math.random()*10000
+        userId,
+        balance: 1+Math.random()*10000
 
     })
-
 
     const token  = jwt.sign({
         userId:newUser._id
@@ -69,7 +68,7 @@ router.post("/signin", async (req,res)=>{
         });
     }
 
-    const user = await PayTMUser.findone({
+    const user = await PayTMUser.findOne({
         username:body.username,
         password:body.password
     });
@@ -141,6 +140,4 @@ router.get("/bulk", async(req,res)=>{
     })
 })
 
-module.exports = {
-    router
-}
+module.exports = router;
