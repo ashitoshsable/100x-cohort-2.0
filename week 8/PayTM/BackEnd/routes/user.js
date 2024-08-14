@@ -118,7 +118,7 @@ router.put("/", authMiddleware, async (req, res)=>{
 router.get("/bulk", async(req,res)=>{
     const filter = req.query.filter || "";
 
-    const users = await PayTMAccount.find({
+    const users = await PayTMUser.find({
         $or:[{
             firstname:{
                 "$regex":filter,
@@ -130,7 +130,7 @@ router.get("/bulk", async(req,res)=>{
         }]
     });
 
-    res.send(200).json({
+    res.status(200).json({
         user:users.map(user=>({
             username: user.username,
             firstName: user.firstName,
