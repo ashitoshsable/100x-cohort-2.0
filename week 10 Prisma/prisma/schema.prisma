@@ -12,3 +12,19 @@ datasource db {
   provider = "postgresql"
   url      = "postgresql://Kirat-Cohort-2_owner:8XHqpSyrY3ZJ@ep-little-cake-a58cfjiz.us-east-2.aws.neon.tech/Kirat-Cohort-2?sslmode=require"
 }
+
+model User {
+  id Int @id @default(autoincrement())
+  username String @unique
+  firstName String
+  lastName String?
+  password String
+}
+
+model Todo {
+  id Int @id @default(autoincrement())
+  title String
+  done Boolean @default(false)
+  description String?
+  userId Int
+}
