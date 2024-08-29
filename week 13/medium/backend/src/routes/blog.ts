@@ -10,31 +10,32 @@ export const blogRouter = new Hono<{
         JWT_secret: string
     }
     Variables:{
-        userId: string
+        userId: number
     }
 }>();
 
 
 //MiddleWare
 blogRouter.use("/*",async (c,next)=>{
-    const header = c.req.header("authorization");
-    if(!header){
-        c.status(401);
+    const header = c.req.header("authorization") || "";
+    try{
+        const user = await verify(header,c.env.JWT_secret);
+        if(user){
+            c.set("userId",Number(user.id));
+            await next();
+        }else{
+            c.status(401);
+            return c.json({
+                message:"You are not logged in!"
+            });
+        }
+    }catch(e){
+        c.status(403);
         return c.json({
             message:"Unauthorized"
-        });
+        })
     }
-  
-    const response = await verify(header,c.env.JWT_secret);
-  
-    if(!response.id){
-        c.status(401);
-        return c.json({
-            message:"Unauthorized"
-        })   
-    }
-    c.set("userId",String(response.id));
-    await next();
+    
   });
 
 
@@ -64,7 +65,6 @@ blogRouter.post('/', async (c) => {
             id:post.id
         })
     }catch(e){
-        console.log(e);
         c.status(403);
         return c.json({
             message:"The post wasn't posted!"
@@ -111,17 +111,25 @@ blogRouter.get('/bulk', async (c) => {
     const prisma = new PrismaClient({
       datasourceUrl: DBUrl,
     }).$extends(withAccelerate());
-  
-    const body = await c.req.json();
 
     try{
         //nextup in pagination
-        const blogs = await prisma.post.findMany()
-
+        const blogs = await prisma.post.findMany({
+            select: {
+                content: true,
+                title: true,
+                id: true,
+                author: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        });
+        
         c.status(200);
         return c.json({
-            message:"All blogs fetched successfully!",
-            blog:blogs
+            blogs
         })
     }catch(e){
         c.status(403);
@@ -141,16 +149,25 @@ blogRouter.get('/:id', async (c) => {
     const id = await c.req.param("id");
 
     try{
-        const blogs = await prisma.post.findMany({
+        const blog = await prisma.post.findFirst({
             where:{
-                id:id
+                id:Number(id)
+            },
+            select: {
+                id: true,
+                title: true,
+                content: true,
+                author: {
+                    select: {
+                        name: true
+                    }
+                }
             }
-        })
-
+        });
+        
         c.status(200);
         return c.json({
-            message:"Your blogs fetched successfully!",
-            blog:blogs
+            blog
         })
     }catch(e){
         c.status(403);

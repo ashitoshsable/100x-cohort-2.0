@@ -23,7 +23,7 @@ export const createBlogInput = z.object({
 export type CreateBlogInput = z.infer<typeof createBlogInput>
 
 export const updateBlogInput = z.object({
-    id:z.string(),
+    id:z.number(),
     title: z.string(),
     content: z.string(),
 })
