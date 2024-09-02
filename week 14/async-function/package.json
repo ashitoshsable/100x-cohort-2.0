@@ -1,5 +1,5 @@
 {
-  "name": "signup-testing",
+  "name": "async-function",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,10 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^5.19.0",
-    "axios": "^1.7.5",
+    "axios": "^1.7.6",
     "next": "14.2.7",
-    "prisma": "^5.19.0",
     "react": "^18",
     "react-dom": "^18"
   },
